@@ -9,6 +9,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import poke.fromitive.attendance.config.ApiClientOption;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,19 +19,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class GoogleHttpRequestInitializerCreator {
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+
     private final NetHttpTransport netHttpTransport;
     private final JsonFactory jsonFactory;
+    private final ApiClientOption apiClientOption;
 
-    public GoogleHttpRequestInitializerCreator(final NetHttpTransport netHttpTransport, final JsonFactory jsonFactory) {
+    public GoogleHttpRequestInitializerCreator(final NetHttpTransport netHttpTransport,
+                                               final JsonFactory jsonFactory,
+                                               final ApiClientOption apiClientOption) {
         this.netHttpTransport = netHttpTransport;
         this.jsonFactory = jsonFactory;
+        this.apiClientOption = apiClientOption;
     }
 
-    public HttpRequestInitializer create(int connectTimeoutMillisecond, int readTimeoutMillisecond) throws IOException {
-        return setHttpTimeout(setCredentialInitializer(), connectTimeoutMillisecond, readTimeoutMillisecond);
+    public HttpRequestInitializer create() throws IOException {
+        return setHttpTimeout(setCredentialInitializer());
     }
 
     private HttpRequestInitializer setCredentialInitializer() throws IOException {
@@ -41,9 +45,9 @@ public class GoogleHttpRequestInitializerCreator {
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
-        InputStream in = GoogleHttpRequestInitializerCreator.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GoogleHttpRequestInitializerCreator.class.getResourceAsStream(apiClientOption.getCredentialsFilePath());
         if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+            throw new FileNotFoundException("Resource not found: " + apiClientOption.getCredentialsFilePath());
         }
         return GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
     }
@@ -51,16 +55,16 @@ public class GoogleHttpRequestInitializerCreator {
     private GoogleAuthorizationCodeFlow buildAuthorizationCodeFlow(GoogleClientSecrets clientSecrets) throws IOException {
         return new GoogleAuthorizationCodeFlow.Builder(
                 netHttpTransport, jsonFactory, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(apiClientOption.getTokenDirectoryPath())))
                 .setAccessType("offline")
                 .build();
     }
 
-    private HttpRequestInitializer setHttpTimeout(final HttpRequestInitializer requestInitializer, int connectTimeoutMillisecond, int readTimeoutMillisecond) {
+    private HttpRequestInitializer setHttpTimeout(final HttpRequestInitializer requestInitializer) {
         return request -> {
             requestInitializer.initialize(request);
-            request.setConnectTimeout(connectTimeoutMillisecond);  // 3 minutes connect timeout
-            request.setReadTimeout(readTimeoutMillisecond);  // 3 minutes read timeout
+            request.setConnectTimeout(apiClientOption.getConnectTimeoutMs());  // 3 minutes connect timeout
+            request.setReadTimeout(apiClientOption.getReadTimeoutMs());  // 3 minutes read timeout
         };
     }
 }

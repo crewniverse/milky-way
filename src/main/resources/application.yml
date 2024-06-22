@@ -16,4 +16,4 @@ spring:
     defer-datasource-initialization: true
 
   config:
-    import: "classpath:sheetoption.yml"
+    import: "classpath:google-api.yml"

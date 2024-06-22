@@ -17,17 +17,19 @@ import java.security.GeneralSecurityException;
 public class GoogleCrawlerConfiguration {
 
     private final SheetOption sheetOption;
+    private final ApiClientOption apiClientOption;
 
-    public GoogleCrawlerConfiguration(final SheetOption sheetOption) {
+    public GoogleCrawlerConfiguration(final SheetOption sheetOption, final ApiClientOption apiClientOption) {
         this.sheetOption = sheetOption;
+        this.apiClientOption = apiClientOption;
     }
 
     @Bean
     AttendanceCrawler crawler() throws GeneralSecurityException, IOException {
         final GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
         final NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        GoogleHttpRequestInitializerCreator creator = new GoogleHttpRequestInitializerCreator(netHttpTransport, jsonFactory);
-        final HttpRequestInitializer httpRequestInitializer = creator.create(3000, 3000);
+        GoogleHttpRequestInitializerCreator creator = new GoogleHttpRequestInitializerCreator(netHttpTransport, jsonFactory, apiClientOption);
+        final HttpRequestInitializer httpRequestInitializer = creator.create();
         return new GoogleSheetCrawler(httpRequestInitializer, jsonFactory, netHttpTransport, sheetOption);
     }
 }

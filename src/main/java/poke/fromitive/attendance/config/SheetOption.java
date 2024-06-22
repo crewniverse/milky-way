@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "sheetoption")
+@ConfigurationProperties(prefix = "sheet")
 public class SheetOption {
     private String spreadSheetId;
     private String spreadSheetRange;
