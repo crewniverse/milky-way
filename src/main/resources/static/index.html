@@ -2,92 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아직 크루가 되지 못한 행성이들</title>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <title>크루가 되지 못한 행성이들</title>
+    <script src="https://www.goat1000.com/tagcanvas.min.js" type="text/javascript"></script>
     <style>
-        .star {
-            fill: blue;
-            stroke: white;
-            stroke-width: 2;
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://img.freepik.com/free-photo/low-angle-shot-mesmerizing-starry-sky_181624-27925.jpg?t=st=1719065474~exp=1719069074~hmac=9fd3d3129616df718542803390f25b024546ea4f5cd1d8ff55e73e7eeebc3d55&w=2000') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        #myCanvas {
+            background: rgba(0, 0, 0, 0.025); /* Semi-transparent background */
+        }
+
+        #tags {
+            display: none;
         }
     </style>
 </head>
 <body>
-<h1>아직 크루가 되지 못한 행성이들</h1>
-<svg width="100%" height="600"></svg>
+<canvas height="600" id="myCanvas" width="800">
+    <!-- Fallback content for browsers that don't support canvas -->
+    <p>Canvas not supported.</p>
+</canvas>
+<div id="tags">
+    <ul id="wordList">
+        <!-- Words will be inserted here -->
+    </ul>
+</div>
 <script>
-    const width = 800;
-    const height = 600;
-    const radius = 10; // Radius of the stars
-    const svg = d3.select("svg");
+    let isCanvasStarted = false;
 
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-    // Fetch the names from the API
-    function fetchAndDrawStars() {
-        // Fetch the names from the API
+    function fetchCrews() {
         fetch('/crews')
             .then(response => response.json())
             .then(data => {
-                // Define the positions and colors for each star
-                const positions = data.map((d, i) => ({
-                    name: d.name,
-                    x: Math.random() * (width - 2 * radius) + radius,
-                    y: Math.random() * (height - 2 * radius) + radius,
-                    color: getRandomColor()
-                }));
-
-                // Draw the stars
-                const stars = svg.selectAll("circle")
-                    .data(positions, d => d.name); // Use name as the key
-
-                // Handle new data points
-                stars.enter()
-                    .append("circle")
-                    .attr("class", "star")
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y)
-                    .attr("r", radius)
-                    .attr("fill", d => d.color)
-                    .merge(stars) // Merge the enter selection with the update selection
-                    .transition()
-                    .duration(15000)
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y)
-                    .attr("fill", d => d.color);
-
-                // Remove old data points
-                stars.exit().remove();
-
-                // Add labels
-                const labels = svg.selectAll("text")
-                    .data(positions, d => d.name); // Use name as the key
-
-                // Handle new labels
-                labels.enter()
-                    .append("text")
-                    .attr("x", d => d.x + 15)
-                    .attr("y", d => d.y + 5)
-                    .text(d => d.name)
-                    .merge(labels) // Merge the enter selection with the update selection
-                    .transition()
-                    .duration(15000)
-                    .attr("x", d => d.x + 15)
-                    .attr("y", d => d.y + 5);
-
-                // Remove old labels
-                labels.exit().remove();
-            });
+                updateWordCloud(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
     }
-    fetchAndDrawStars();
-    setInterval(fetchAndDrawStars, 30000);
+
+    function updateWordCloud(data) {
+        const wordList = document.getElementById('wordList');
+        wordList.innerHTML = ''; // Clear current words
+
+        data.forEach(item => {
+            const color = getRandomColor();
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="#" style="color: ${color};">${item.name}</a>`;
+            wordList.appendChild(li);
+        });
+
+        if (isCanvasStarted) {
+            TagCanvas.Reload('myCanvas');
+        } else {
+            TagCanvas.Start('myCanvas', 'tags', {
+                textColour: null,
+                textFont: null,
+                outlineColour: '#ff9999',
+                reverse: true,
+                depth: 0.8,
+                maxSpeed: 0.05,
+                weight: true,
+                textHeight: 25,
+                shadow: '#000000',
+                shadowBlur: 5,
+                shadowOffset: [3, 3]
+            });
+            isCanvasStarted = true;
+        }
+    }
+
+    function getRandomColor() {
+        const letters = 'EF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * letters.length)];
+        }
+        return color;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchCrews(); // Initial fetch
+        setInterval(fetchCrews, 5000); // Fetch every 5 seconds
+    });
 </script>
 </body>
 </html>
