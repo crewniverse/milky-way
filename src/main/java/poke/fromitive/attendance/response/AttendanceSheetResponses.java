@@ -1,9 +1,8 @@
 package poke.fromitive.attendance.response;
 
-import poke.fromitive.attendance.domain.Crew;
-
 import java.time.LocalDate;
 import java.util.List;
+import poke.fromitive.attendance.domain.Crew;
 
 public class AttendanceSheetResponses {
     private final List<AttendanceSheetResponse> attendanceSheetResponses;
@@ -12,7 +11,7 @@ public class AttendanceSheetResponses {
         this.attendanceSheetResponses = attendanceSheetResponses;
     }
 
-    public AttendanceSheetResponses findByDate(LocalDate date){
+    public AttendanceSheetResponses findByDate(LocalDate date) {
         return new AttendanceSheetResponses(attendanceSheetResponses.stream()
                 .filter(attendanceSheetResponse -> attendanceSheetResponse.getDate().isEqual(date))
                 .toList());
@@ -20,7 +19,7 @@ public class AttendanceSheetResponses {
 
     public List<Crew> getAttendedCrew() {
         return attendanceSheetResponses.stream()
-            .map(AttendanceSheetResponse::getCrew)
-            .toList();
+                .map(AttendanceSheetResponse::getCrew)
+                .toList();
     }
 }

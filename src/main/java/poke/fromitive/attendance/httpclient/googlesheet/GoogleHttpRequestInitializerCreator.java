@@ -9,14 +9,13 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.SheetsScopes;
-import poke.fromitive.attendance.config.ApiClientOption;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
+import poke.fromitive.attendance.config.ApiClientOption;
 
 public class GoogleHttpRequestInitializerCreator {
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
@@ -45,17 +44,21 @@ public class GoogleHttpRequestInitializerCreator {
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
-        InputStream in = GoogleHttpRequestInitializerCreator.class.getResourceAsStream(apiClientOption.getCredentialsFilePath());
+        InputStream in = GoogleHttpRequestInitializerCreator.class
+                .getResourceAsStream(apiClientOption.getCredentialsFilePath());
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + apiClientOption.getCredentialsFilePath());
         }
         return GoogleClientSecrets.load(jsonFactory, new InputStreamReader(in));
     }
 
-    private GoogleAuthorizationCodeFlow buildAuthorizationCodeFlow(GoogleClientSecrets clientSecrets) throws IOException {
+    private GoogleAuthorizationCodeFlow buildAuthorizationCodeFlow(GoogleClientSecrets clientSecrets)
+            throws IOException {
         return new GoogleAuthorizationCodeFlow.Builder(
                 netHttpTransport, jsonFactory, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(apiClientOption.getTokenDirectoryPath())))
+                .setDataStoreFactory(
+                        new FileDataStoreFactory(new java.io.File(apiClientOption.getTokenDirectoryPath()))
+                )
                 .setAccessType("offline")
                 .build();
     }
@@ -63,8 +66,8 @@ public class GoogleHttpRequestInitializerCreator {
     private HttpRequestInitializer setHttpTimeout(final HttpRequestInitializer requestInitializer) {
         return request -> {
             requestInitializer.initialize(request);
-            request.setConnectTimeout(apiClientOption.getConnectTimeoutMs());  // 3 minutes connect timeout
-            request.setReadTimeout(apiClientOption.getReadTimeoutMs());  // 3 minutes read timeout
+            request.setConnectTimeout(apiClientOption.getConnectTimeoutMs());
+            request.setReadTimeout(apiClientOption.getReadTimeoutMs());
         };
     }
 }

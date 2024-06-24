@@ -1,17 +1,16 @@
 package poke.fromitive.attendance.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import poke.fromitive.attendance.BaseSpringBootTest;
 import poke.fromitive.attendance.response.AttendanceResponse;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Sql({"/test_data.sql"})
 class AttendanceServiceTest extends BaseSpringBootTest {

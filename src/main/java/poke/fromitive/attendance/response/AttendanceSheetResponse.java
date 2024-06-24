@@ -1,13 +1,15 @@
 package poke.fromitive.attendance.response;
 
-import poke.fromitive.attendance.domain.Crew;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import poke.fromitive.attendance.domain.Crew;
 
 public class AttendanceSheetResponse {
-    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern("yyyy. M. d a h:mm:ss", Locale.KOREA);
+    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern(
+            "yyyy. M. d a h:mm:ss", Locale.KOREA
+    );
+
     private final LocalDate date;
     private final String name;
     private final String campusName;
