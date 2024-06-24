@@ -3,10 +3,8 @@ package poke.fromitive.attendance.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
-import poke.fromitive.attendance.config.TestConfiguration;
+import poke.fromitive.attendance.BaseSpringBootTest;
 import poke.fromitive.attendance.response.AttendanceResponse;
 
 import java.io.IOException;
@@ -15,10 +13,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Import(TestConfiguration.class)
 @Sql({"/test_data.sql"})
-class AttendanceServiceTest {
+class AttendanceServiceTest extends BaseSpringBootTest {
 
     @Autowired
     private AttendanceService attendanceService;
