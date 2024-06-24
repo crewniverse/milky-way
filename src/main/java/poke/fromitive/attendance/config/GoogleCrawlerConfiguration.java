@@ -7,7 +7,6 @@ import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import poke.fromitive.attendance.httpclient.AttendanceCrawler;
 import poke.fromitive.attendance.httpclient.googlesheet.GoogleHttpRequestInitializerCreator;
 import poke.fromitive.attendance.httpclient.googlesheet.GoogleSheetCrawler;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 @Configuration
-@Profile("!test")
 @EnableConfigurationProperties({SheetOption.class, ApiClientOption.class})
 public class GoogleCrawlerConfiguration {
     private final SheetOption sheetOption;

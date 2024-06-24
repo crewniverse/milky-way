@@ -1,16 +1,16 @@
 package poke.fromitive.attendance.config;
 
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Primary;
 import poke.fromitive.attendance.fake.FakeAttendanceCrawler;
 import poke.fromitive.attendance.httpclient.AttendanceCrawler;
 
-@Configuration
-@Profile("test")
-public class TestConfiguration {
+@TestConfiguration
+public class TestCrawlerConfiguration {
 
     @Bean
+    @Primary
     AttendanceCrawler testAttendanceCrawler() {
         return new FakeAttendanceCrawler();
     }
