@@ -1,18 +1,13 @@
 package poke.fromitive.attendance.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-@Component
 @ConfigurationProperties(prefix = "api-client")
 public class ApiClientOption {
-    private String tokenDirectoryPath;
-    private String credentialsFilePath;
-    private int readTimeoutMs;
-    private int connectTimeoutMs;
-
-    private ApiClientOption() {
-    }
+    private final String tokenDirectoryPath;
+    private final String credentialsFilePath;
+    private final int readTimeoutMs;
+    private final int connectTimeoutMs;
 
     public ApiClientOption(final String tokenDirectoryPath,
                            final String credentialsFilePath,
@@ -28,31 +23,15 @@ public class ApiClientOption {
         return tokenDirectoryPath;
     }
 
-    public void setTokenDirectoryPath(final String tokenDirectoryPath) {
-        this.tokenDirectoryPath = tokenDirectoryPath;
-    }
-
     public String getCredentialsFilePath() {
         return credentialsFilePath;
-    }
-
-    public void setCredentialsFilePath(final String credentialsFilePath) {
-        this.credentialsFilePath = credentialsFilePath;
     }
 
     public int getReadTimeoutMs() {
         return readTimeoutMs;
     }
 
-    public void setReadTimeoutMs(final int readTimeoutMs) {
-        this.readTimeoutMs = readTimeoutMs;
-    }
-
     public int getConnectTimeoutMs() {
         return connectTimeoutMs;
-    }
-
-    public void setConnectTimeoutMs(final int connectTimeoutMs) {
-        this.connectTimeoutMs = connectTimeoutMs;
     }
 }
