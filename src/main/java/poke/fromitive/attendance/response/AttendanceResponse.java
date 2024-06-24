@@ -1,6 +1,5 @@
 package poke.fromitive.attendance.response;
 
-import poke.fromitive.attendance.domain.Attendance;
 import poke.fromitive.attendance.domain.Crew;
 
 public record AttendanceResponse(String name) {

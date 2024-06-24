@@ -1,12 +1,11 @@
 package poke.fromitive.attendance.controller;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import poke.fromitive.attendance.response.AttendanceResponse;
 import poke.fromitive.attendance.service.AttendanceService;
-
-import java.util.List;
 
 @RestController
 public class AttendanceController {
@@ -22,4 +21,3 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceResponses);
     }
 }
-

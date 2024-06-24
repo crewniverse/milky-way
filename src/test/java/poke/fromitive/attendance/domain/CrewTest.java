@@ -1,9 +1,9 @@
 package poke.fromitive.attendance.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class CrewTest {
     @DisplayName("캠퍼스가 다르면 같지 않다.")

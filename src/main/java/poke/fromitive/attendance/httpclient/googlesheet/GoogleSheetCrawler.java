@@ -4,18 +4,18 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.services.sheets.v4.Sheets;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.List;
 import poke.fromitive.attendance.config.SheetOption;
 import poke.fromitive.attendance.httpclient.AttendanceCrawler;
 import poke.fromitive.attendance.response.AttendanceSheetResponse;
 import poke.fromitive.attendance.response.AttendanceSheetResponses;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class GoogleSheetCrawler implements AttendanceCrawler {
     private static final String APPLICATION_NAME = "Google Sheet Crawler";
+
     private final HttpRequestInitializer httpRequestInitializer;
     private final JsonFactory jsonFactory;
     private final NetHttpTransport netHttpTransport;
@@ -46,7 +46,7 @@ public class GoogleSheetCrawler implements AttendanceCrawler {
         return new AttendanceSheetResponses(attendanceSheetResponses);
     }
 
-    private List<List<Object>> crawl(String spreadsheetId, String range) throws GeneralSecurityException, IOException {
+    private List<List<Object>> crawl(String spreadsheetId, String range) throws IOException {
         Sheets service = new Sheets.Builder(netHttpTransport, jsonFactory, httpRequestInitializer)
                 .setApplicationName(APPLICATION_NAME)
                 .build();

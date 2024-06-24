@@ -1,19 +1,16 @@
 package poke.fromitive.attendance.fake;
 
-import poke.fromitive.attendance.httpclient.AttendanceCrawler;
-import poke.fromitive.attendance.response.AttendanceSheetResponse;
-import poke.fromitive.attendance.response.AttendanceSheetResponses;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import poke.fromitive.attendance.httpclient.AttendanceCrawler;
+import poke.fromitive.attendance.response.AttendanceSheetResponse;
+import poke.fromitive.attendance.response.AttendanceSheetResponses;
 
 public class FakeAttendanceCrawler implements AttendanceCrawler {
     @Override
-    public AttendanceSheetResponses execute() throws GeneralSecurityException, IOException {
+    public AttendanceSheetResponses execute() {
         String currentDateString = getCurrentDateString();
         return new AttendanceSheetResponses(List.of(
                 new AttendanceSheetResponse(currentDateString, "포케", "잠실")
