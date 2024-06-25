@@ -17,7 +17,7 @@ public class AttendanceController {
 
     @GetMapping("/crews")
     ResponseEntity<List<AttendanceResponse>> getAttendance() {
-        List<AttendanceResponse> attendanceResponses = attendanceService.getNotAttendanceCrew();
+        List<AttendanceResponse> attendanceResponses = attendanceService.getAbsentCrew();
         return ResponseEntity.ok(attendanceResponses);
     }
 }

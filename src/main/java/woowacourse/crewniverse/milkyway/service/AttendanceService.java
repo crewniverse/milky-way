@@ -21,11 +21,12 @@ public class AttendanceService {
         this.attendanceCrawler = attendanceCrawler;
     }
 
-    public List<AttendanceResponse> getNotAttendanceCrew() {
+    public List<AttendanceResponse> getAbsentCrew() {
         return attendanceRepository.findByLastAttendedDateNotOrLastAttendedDateIsNull(LocalDate.now())
                 .stream()
-                .map(Attendance::getCrew)
-                .map(AttendanceResponse::fromCrew).toList();
+                .map(Attendance::getCrewName)
+                .map(AttendanceResponse::new)
+                .toList();
     }
 
     @Transactional
@@ -35,7 +36,7 @@ public class AttendanceService {
         final List<Attendance> attendances = attendanceRepository.findAll();
         final List<Crew> crews = attendanceSheetResponses.getAttendedCrew();
         attendances.stream()
-                .filter(Attendance::isNotAttended)
+                .filter(Attendance::isAbsent)
                 .filter(attendance -> crews.contains(attendance.getCrew()))
                 .forEach(Attendance::updateAttendedDate);
     }
