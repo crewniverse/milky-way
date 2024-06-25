@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import woowacourse.crewniverse.milkyway.httpclient.AttendanceCrawler;
-import woowacourse.crewniverse.milkyway.response.AttendanceSheetResponse;
-import woowacourse.crewniverse.milkyway.response.AttendanceSheetResponses;
+import woowacourse.crewniverse.milkyway.service.AttendanceCrawler;
+import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse;
+import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponses;
 
 public class FakeAttendanceCrawler implements AttendanceCrawler {
     @Override

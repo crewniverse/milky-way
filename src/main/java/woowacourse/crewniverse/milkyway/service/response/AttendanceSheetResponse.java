@@ -1,4 +1,4 @@
-package woowacourse.crewniverse.milkyway.response;
+package woowacourse.crewniverse.milkyway.service.response;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

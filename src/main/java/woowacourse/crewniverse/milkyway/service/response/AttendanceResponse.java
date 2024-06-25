@@ -1,4 +1,4 @@
-package woowacourse.crewniverse.milkyway.response;
+package woowacourse.crewniverse.milkyway.service.response;
 
 import woowacourse.crewniverse.milkyway.domain.Crew;
 

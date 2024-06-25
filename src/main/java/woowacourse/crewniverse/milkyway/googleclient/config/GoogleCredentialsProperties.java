@@ -1,16 +1,16 @@
-package woowacourse.crewniverse.milkyway.config;
+package woowacourse.crewniverse.milkyway.googleclient.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "google-credentials")
-public class GoogleCredentialsOption {
+public class GoogleCredentialsProperties {
     private final int receiverPort;
     private final String tokenDirectoryPath;
     private final String credentialsFilePath;
 
-    public GoogleCredentialsOption(final int receiverPort,
-                                   final String tokenDirectoryPath,
-                                   final String credentialsFilePath) {
+    public GoogleCredentialsProperties(final int receiverPort,
+                                       final String tokenDirectoryPath,
+                                       final String credentialsFilePath) {
         this.receiverPort = receiverPort;
         this.tokenDirectoryPath = tokenDirectoryPath;
         this.credentialsFilePath = credentialsFilePath;

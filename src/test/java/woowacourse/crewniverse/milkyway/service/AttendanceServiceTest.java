@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import woowacourse.crewniverse.milkyway.BaseSpringBootTest;
-import woowacourse.crewniverse.milkyway.response.AttendanceResponse;
+import woowacourse.crewniverse.milkyway.service.response.AttendanceResponse;
 
 @Sql({"/test_data.sql"})
 class AttendanceServiceTest extends BaseSpringBootTest {
