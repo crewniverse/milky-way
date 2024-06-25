@@ -11,7 +11,7 @@ public class TestCrawlerConfiguration {
 
     @Bean
     @Primary
-    AttendanceCrawler testAttendanceCrawler() {
+    AttendanceCrawler attendanceCrawler() {
         return new FakeAttendanceCrawler();
     }
 }
