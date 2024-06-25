@@ -2,8 +2,6 @@ package woowacourse.crewniverse.milkyway.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,7 @@ class AttendanceServiceTest extends BaseSpringBootTest {
 
     @DisplayName("출석부를 업데이트 한다.")
     @Test
-    void should_update_attendance() throws GeneralSecurityException, IOException {
+    void should_update_attendance() {
         attendanceService.updateAttendance();
         final List<AttendanceResponse> notAttendanceCrew = attendanceService.getNotAttendanceCrew();
         assertThat(notAttendanceCrew).isEmpty();

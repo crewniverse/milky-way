@@ -2,8 +2,6 @@ package woowacourse.crewniverse.milkyway.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowacourse.crewniverse.milkyway.domain.Attendance;
@@ -14,8 +12,6 @@ import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse
 
 @Service
 public class AttendanceService {
-    private static final Logger log = LoggerFactory.getLogger(AttendanceService.class);
-
     private final AttendanceRepository attendanceRepository;
     private final AttendanceCrawler attendanceCrawler;
 
