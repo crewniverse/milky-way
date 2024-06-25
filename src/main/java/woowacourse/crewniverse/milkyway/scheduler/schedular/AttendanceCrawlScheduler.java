@@ -1,4 +1,4 @@
-package woowacourse.crewniverse.milkyway.schedular;
+package woowacourse.crewniverse.milkyway.scheduler.schedular;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
