@@ -14,7 +14,7 @@ public class GoogleSheetCrawler implements AttendanceCrawler {
     private final Sheets sheetsService;
     private final SheetOption sheetOption;
 
-    public GoogleSheetCrawler(Sheets sheetsService,
+    public GoogleSheetCrawler(final Sheets sheetsService,
                               final SheetOption sheetOption) {
         this.sheetsService = sheetsService;
         this.sheetOption = sheetOption;

@@ -24,7 +24,7 @@ public class GoogleCredentials {
     private GoogleCredentials() {
     }
 
-    public static Credential authorize(GoogleCredentialsOption googleCredentialsOption)
+    public static Credential authorize(final GoogleCredentialsOption googleCredentialsOption)
             throws IOException, GeneralSecurityException {
         InputStream in = GoogleCredentials.class.getResourceAsStream(googleCredentialsOption.getCredentialsFilePath());
         if (in == null) {
