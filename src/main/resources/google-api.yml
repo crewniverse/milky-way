@@ -1,8 +1,12 @@
-api-client:
+google-credentials:
   credentials-file-path: "/credentials.json"
   token-directory-path: "tokens"
-  read-timeout-ms: 2000
-  connect-timeout-ms: 2000
+  receiver-port: 8888
+
+google-client:
+  application-name: "Google Sheet Crawler"
+  read-timeout: 3s
+  connection-timeout: 3s
 
 sheet:
   spread-sheet-id: "1pjZUxFqEvk-vdfEeX8w58F9llRO9-RZbFZFWQyFvr8w"

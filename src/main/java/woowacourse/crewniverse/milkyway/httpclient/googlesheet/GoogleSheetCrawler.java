@@ -1,8 +1,5 @@
 package woowacourse.crewniverse.milkyway.httpclient.googlesheet;
 
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -14,20 +11,12 @@ import woowacourse.crewniverse.milkyway.response.AttendanceSheetResponse;
 import woowacourse.crewniverse.milkyway.response.AttendanceSheetResponses;
 
 public class GoogleSheetCrawler implements AttendanceCrawler {
-    private static final String APPLICATION_NAME = "Google Sheet Crawler";
-
-    private final HttpRequestInitializer httpRequestInitializer;
-    private final JsonFactory jsonFactory;
-    private final NetHttpTransport netHttpTransport;
+    private final Sheets sheetsService;
     private final SheetOption sheetOption;
 
-    public GoogleSheetCrawler(final HttpRequestInitializer httpRequestInitializer,
-                              final JsonFactory jsonFactory,
-                              final NetHttpTransport netHttpTransport,
+    public GoogleSheetCrawler(Sheets sheetsService,
                               final SheetOption sheetOption) {
-        this.httpRequestInitializer = httpRequestInitializer;
-        this.jsonFactory = jsonFactory;
-        this.netHttpTransport = netHttpTransport;
+        this.sheetsService = sheetsService;
         this.sheetOption = sheetOption;
     }
 
@@ -47,11 +36,7 @@ public class GoogleSheetCrawler implements AttendanceCrawler {
     }
 
     private List<List<Object>> crawl(String spreadsheetId, String range) throws IOException {
-        Sheets service = new Sheets.Builder(netHttpTransport, jsonFactory, httpRequestInitializer)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        List<List<Object>> values = service.spreadsheets().values()
+        List<List<Object>> values = sheetsService.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute()
                 .getValues();
