@@ -1,4 +1,4 @@
-package woowacourse.crewniverse.milkyway.response;
+package woowacourse.crewniverse.milkyway.service.response;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,5 @@
-package woowacourse.crewniverse.milkyway.scheduler.schedular;
+package woowacourse.crewniverse.milkyway.scheduler;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -24,7 +22,7 @@ public class AttendanceCrawlScheduler {
 
     @Scheduled(fixedRate = 3000)
     @Async
-    public void crawlAttendance() throws IOException, GeneralSecurityException {
+    public void crawlAttendance() {
         LocalDateTime now = LocalDateTime.now();
         log.info("query StartTime {}", DATE_TIME_FORMATTER.format(now));
         attendanceService.updateAttendance();

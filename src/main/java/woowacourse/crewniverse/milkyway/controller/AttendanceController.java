@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import woowacourse.crewniverse.milkyway.response.AttendanceResponse;
+import woowacourse.crewniverse.milkyway.service.response.AttendanceResponse;
 import woowacourse.crewniverse.milkyway.service.AttendanceService;
 
 @RestController
@@ -17,7 +17,7 @@ public class AttendanceController {
 
     @GetMapping("/crews")
     ResponseEntity<List<AttendanceResponse>> getAttendance() {
-        List<AttendanceResponse> attendanceResponses = attendanceService.getNotAttendanceCrew();
+        List<AttendanceResponse> attendanceResponses = attendanceService.getAbsentCrew();
         return ResponseEntity.ok(attendanceResponses);
     }
 }

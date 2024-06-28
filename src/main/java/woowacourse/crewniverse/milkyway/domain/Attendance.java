@@ -40,11 +40,15 @@ public class Attendance {
         return crew;
     }
 
+    public String getCrewName() {
+        return crew.getName();
+    }
+
     public LocalDate getLastAttendedDate() {
         return lastAttendedDate;
     }
 
-    public boolean isNotAttended() {
+    public boolean isAbsent() {
         return lastAttendedDate == null || LocalDate.now().isEqual(lastAttendedDate);
     }
 
