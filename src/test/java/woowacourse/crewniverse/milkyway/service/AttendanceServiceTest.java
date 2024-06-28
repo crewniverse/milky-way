@@ -21,6 +21,6 @@ class AttendanceServiceTest extends BaseSpringBootTest {
     void should_update_attendance() {
         attendanceService.updateAttendance();
         final List<AttendanceResponse> notAttendanceCrew = attendanceService.getAbsentCrew();
-        assertThat(notAttendanceCrew).isEmpty();
+        assertThat(notAttendanceCrew).hasSize(2);
     }
 }

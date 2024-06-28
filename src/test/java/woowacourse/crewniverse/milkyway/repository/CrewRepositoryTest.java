@@ -9,20 +9,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-import woowacourse.crewniverse.milkyway.domain.Attendance;
+import woowacourse.crewniverse.milkyway.domain.Crew;
 
 @DataJpaTest
-class AttendanceRepositoryTest {
+@Sql({"/test_data.sql"})
+class CrewRepositoryTest {
 
     @Autowired
-    AttendanceRepository attendanceRepository;
+    CrewRepository crewRepository;
 
     @DisplayName("오늘 출석하지 않은 크루리스트를 반환한다.")
     @Test
-    @Sql({"/test_data.sql"})
-    void shouldReturnNotAttendedCrews() {
-        final List<Attendance> attendances = attendanceRepository.findByLastAttendedDateNotOrLastAttendedDateIsNull(
-                LocalDate.now());
-        assertThat(attendances).hasSize(1);
+    void shouldReturnAbsentedCrews() {
+        final List<Crew> crews = crewRepository.findByAbsentedCrew(LocalDate.now());
+        assertThat(crews).hasSize(3);
     }
 }
