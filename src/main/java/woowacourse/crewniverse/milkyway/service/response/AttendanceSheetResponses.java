@@ -10,7 +10,7 @@ public class AttendanceSheetResponses {
     public AttendanceSheetResponses(final List<AttendanceSheetResponse> attendanceSheetResponses) {
         this.attendanceSheetResponses = attendanceSheetResponses;
     }
-
+  
     public List<AttendanceSheetResponse> findByDate(LocalDate date) {
         return attendanceSheetResponses.stream()
             .filter(attendanceSheetResponse -> attendanceSheetResponse.getDate().isEqual(date))
