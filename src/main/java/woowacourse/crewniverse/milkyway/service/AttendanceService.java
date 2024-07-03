@@ -26,7 +26,7 @@ public class AttendanceService {
     }
 
     public List<AttendanceResponse> getAbsentCrew() {
-        return crewRepository.findByAbsentedCrew(
+        return crewRepository.findAbsentedCrewByDate(
                 LocalDate.now())
             .stream()
             .map(Crew::getName)
@@ -44,7 +44,7 @@ public class AttendanceService {
 
     private List<Attendance> createNewAttendances(
         final List<AttendanceSheetResponse> attendanceSheetResponses, final LocalDate today) {
-        final List<Crew> absentedCrews = crewRepository.findByAbsentedCrew(today);
+        final List<Crew> absentedCrews = crewRepository.findAbsentedCrewByDate(today);
         final List<Crew> attendanceCrews = attendanceSheetResponses.stream()
             .map(AttendanceSheetResponse::getCrew)
             .toList();

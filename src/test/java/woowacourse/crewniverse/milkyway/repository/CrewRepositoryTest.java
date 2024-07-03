@@ -21,7 +21,7 @@ class CrewRepositoryTest {
     @DisplayName("오늘 출석하지 않은 크루리스트를 반환한다.")
     @Test
     void shouldReturnAbsentedCrews() {
-        final List<Crew> crews = crewRepository.findByAbsentedCrew(LocalDate.now());
+        final List<Crew> crews = crewRepository.findAbsentedCrewByDate(LocalDate.now());
         assertThat(crews).hasSize(3);
     }
 }
