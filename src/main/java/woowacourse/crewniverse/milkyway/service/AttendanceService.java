@@ -44,11 +44,11 @@ public class AttendanceService {
 
     private List<Attendance> createNewAttendances(
         final List<AttendanceSheetResponse> attendanceSheetResponses, final LocalDate today) {
-        final List<Crew> crews = crewRepository.findAll();
+        final List<Crew> absentedCrews = crewRepository.findByAbsentedCrew(today);
         final List<Crew> attendanceCrews = attendanceSheetResponses.stream()
             .map(AttendanceSheetResponse::getCrew)
             .toList();
-        return crews.stream()
+        return absentedCrews.stream()
             .filter(attendanceCrews::contains)
             .map(crew -> new Attendance(crew, today))
             .toList();
