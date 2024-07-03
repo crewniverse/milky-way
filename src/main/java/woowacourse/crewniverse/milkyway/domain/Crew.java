@@ -2,6 +2,8 @@ package woowacourse.crewniverse.milkyway.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,15 +21,16 @@ public class Crew {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "campus_name", nullable = false)
-    private String campusName;
+    @Column(name = "campus", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Campus campus;
 
     protected Crew() {
     }
 
-    public Crew(final String name, final String campusName) {
+    public Crew(final String name, final Campus campus) {
         this.name = name;
-        this.campusName = campusName;
+        this.campus = campus;
     }
 
     public String getName() {
@@ -35,7 +38,7 @@ public class Crew {
     }
 
     public String getCampusName() {
-        return campusName;
+        return campus.getName();
     }
 
     @Override
@@ -47,11 +50,11 @@ public class Crew {
             return false;
         }
         final Crew crew = (Crew) o;
-        return Objects.equals(name, crew.name) && Objects.equals(campusName, crew.campusName);
+        return Objects.equals(name, crew.name) && campus == crew.campus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, campusName);
+        return Objects.hash(name, campus);
     }
 }

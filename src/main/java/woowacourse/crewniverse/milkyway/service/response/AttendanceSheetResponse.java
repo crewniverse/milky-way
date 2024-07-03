@@ -3,6 +3,7 @@ package woowacourse.crewniverse.milkyway.service.response;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import woowacourse.crewniverse.milkyway.domain.Campus;
 import woowacourse.crewniverse.milkyway.domain.Crew;
 
 public class AttendanceSheetResponse {
@@ -17,7 +18,8 @@ public class AttendanceSheetResponse {
     public AttendanceSheetResponse(final String rawDate,
                                    final String name, final String campusName) {
         this.date = LocalDate.parse(rawDate, DATE_PARSER);
-        this.crew = new Crew(name, campusName);
+        final Campus campus = Campus.fromName(campusName);
+        this.crew = new Crew(name, campus);
     }
 
     public LocalDate getDate() {
