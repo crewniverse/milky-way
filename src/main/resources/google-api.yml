@@ -9,8 +9,9 @@ google-client:
   connection-timeout: 3s
 
 sheet:
-  spread-sheet-id: "1pjZUxFqEvk-vdfEeX8w58F9llRO9-RZbFZFWQyFvr8w"
-  spread-sheet-range: "출석 응답 시트!A2:G"
+  spread-sheet-id: "1bSr5vRtLEfBghu1-4ar4KjxPgRYHPKwtzPiaPS5N5XM"
+  spread-sheet-range: "설문지 응답 시트1!A2:G"
   date-column-number: 0
-  crew-name-column-number: 1
+  crew-name-column-number: 2
   campus-name-column-number: 3
+

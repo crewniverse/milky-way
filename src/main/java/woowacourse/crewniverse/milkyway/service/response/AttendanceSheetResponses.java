@@ -13,7 +13,7 @@ public class AttendanceSheetResponses {
   
     public List<AttendanceSheetResponse> findByDate(LocalDate date) {
         return attendanceSheetResponses.stream()
-            .filter(attendanceSheetResponse -> attendanceSheetResponse.getDate().isEqual(date))
+            .filter(attendanceSheetResponse -> attendanceSheetResponse.isDateOf(date))
             .toList();
     }
 }
