@@ -14,8 +14,8 @@ public class AttendanceSheetResponse {
     private final LocalDate date;
     private final Crew crew;
 
-    public AttendanceSheetResponse(final String rawDate, final String name,
-                                   final String campusName) {
+    public AttendanceSheetResponse(final String rawDate,
+                                   final String name, final String campusName) {
         this.date = LocalDate.parse(rawDate, DATE_PARSER);
         this.crew = new Crew(name, campusName);
     }

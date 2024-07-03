@@ -26,8 +26,7 @@ public class AttendanceService {
     }
 
     public List<AttendanceResponse> getAbsentCrew() {
-        return crewRepository.findAbsentedCrewByDate(
-                LocalDate.now())
+        return crewRepository.findAbsentedCrewByDate(LocalDate.now())
             .stream()
             .map(Crew::getName)
             .map(AttendanceResponse::new)
