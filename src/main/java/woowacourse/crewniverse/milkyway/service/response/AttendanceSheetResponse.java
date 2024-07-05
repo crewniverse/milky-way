@@ -29,7 +29,7 @@ public class AttendanceSheetResponse {
         return crew;
     }
 
-    public boolean isDateOf(final LocalDate date) {
+    public boolean hasDateOf(final LocalDate date) {
         return this.date.equals(date);
     }
 }
