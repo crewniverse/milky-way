@@ -1,7 +1,5 @@
 package woowacourse.crewniverse.milkyway.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 public enum Campus {
@@ -14,7 +12,6 @@ public enum Campus {
         this.name = name;
     }
 
-    @JsonCreator
     public static Campus fromName(String name) {
         return Arrays.stream(Campus.values())
             .filter(it -> it.getName().equals(name))
@@ -23,7 +20,6 @@ public enum Campus {
                 () -> new IllegalArgumentException("캠퍼스 명이 존재하지 않습니다 [%s]".formatted(name)));
     }
 
-    @JsonValue
     public String getName() {
         return name;
     }
