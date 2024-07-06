@@ -11,12 +11,14 @@ import java.security.GeneralSecurityException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import woowacourse.crewniverse.milkyway.service.AttendanceCrawler;
 import woowacourse.crewniverse.milkyway.googleclient.GoogleCredentials;
 import woowacourse.crewniverse.milkyway.googleclient.GoogleSheetCrawler;
+import woowacourse.crewniverse.milkyway.service.AttendanceCrawler;
 
 @Configuration
-@EnableConfigurationProperties({SpreadSheetProperties.class, GoogleCredentialsProperties.class, GoogleClientProperties.class})
+@EnableConfigurationProperties({
+        SpreadSheetProperties.class, GoogleCredentialsProperties.class, GoogleClientProperties.class
+})
 public class GoogleCrawlerConfiguration {
     private final SpreadSheetProperties spreadSheetProperties;
     private final GoogleCredentialsProperties googleCredentialsProperties;
