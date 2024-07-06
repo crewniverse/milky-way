@@ -36,7 +36,9 @@ public class AttendanceService {
     public void updateAttendance() {
         LocalDate today = LocalDate.now();
         final List<AttendanceSheetResponse> attendanceSheetResponses = attendanceCrawler.execute()
-            .findByDate(today);
+                .stream()
+                .filter(attendanceSheetResponse -> attendanceSheetResponse.hasDateOf(today))
+                .toList();
         final List<Attendance> attendances = createNewAttendances(attendanceSheetResponses, today);
         attendanceRepository.saveAll(attendances);
     }

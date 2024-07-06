@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.Locale;
 import woowacourse.crewniverse.milkyway.service.AttendanceCrawler;
 import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse;
-import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponses;
 
 public class FakeAttendanceCrawler implements AttendanceCrawler {
     @Override
-    public AttendanceSheetResponses execute() {
+    public List<AttendanceSheetResponse> execute() {
         String currentDateString = getCurrentDateString();
-        return new AttendanceSheetResponses(List.of(
+        return List.of(
                 new AttendanceSheetResponse(currentDateString, "포케", "잠실")
-        ));
+        );
     }
 
     private String getCurrentDateString() {

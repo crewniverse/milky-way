@@ -7,9 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import woowacourse.crewniverse.milkyway.googleclient.config.SpreadSheetProperties;
-import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse;
-import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponses;
 import woowacourse.crewniverse.milkyway.service.AttendanceCrawler;
+import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse;
 
 public class GoogleSheetCrawler implements AttendanceCrawler {
     private static final Logger log = LoggerFactory.getLogger(GoogleSheetCrawler.class);
@@ -24,7 +23,7 @@ public class GoogleSheetCrawler implements AttendanceCrawler {
     }
 
     @Override
-    public AttendanceSheetResponses execute() {
+    public List<AttendanceSheetResponse> execute() {
         List<AttendanceSheetResponse> attendanceSheetResponses = new ArrayList<>();
         final List<List<Object>> values = crawl(spreadSheetProperties.getSpreadSheetId(),
                 spreadSheetProperties.getSpreadSheetRange());
@@ -35,7 +34,7 @@ public class GoogleSheetCrawler implements AttendanceCrawler {
             String campusName = (String) row.get(spreadSheetProperties.getCampusNameColumnNumber());
             attendanceSheetResponses.add(new AttendanceSheetResponse(rawDate, name, campusName));
         }
-        return new AttendanceSheetResponses(attendanceSheetResponses);
+        return attendanceSheetResponses;
     }
 
     private List<List<Object>> crawl(String spreadsheetId, String range) {
