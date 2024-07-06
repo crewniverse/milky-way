@@ -9,5 +9,5 @@ import woowacourse.crewniverse.milkyway.domain.Crew;
 public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     @Query("SELECT c FROM Crew c LEFT JOIN Attendance a ON c = a.crew AND a.date = :date WHERE a.id IS NULL")
-    List<Crew> findAbsentedCrewByDate(LocalDate date);
+    List<Crew> findAbsentCrewByDate(LocalDate date);
 }
