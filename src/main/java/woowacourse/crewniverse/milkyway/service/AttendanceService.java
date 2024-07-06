@@ -41,8 +41,8 @@ public class AttendanceService {
         attendanceRepository.saveAll(attendances);
     }
 
-    private List<Attendance> createNewAttendances(
-        final List<AttendanceSheetResponse> attendanceSheetResponses, final LocalDate today) {
+    private List<Attendance> createNewAttendances(final List<AttendanceSheetResponse> attendanceSheetResponses,
+                                                  final LocalDate today) {
         final List<Crew> absentedCrews = crewRepository.findAbsentCrewByDate(today);
         final List<Crew> attendanceCrews = attendanceSheetResponses.stream()
             .map(AttendanceSheetResponse::getCrew)
