@@ -2,6 +2,9 @@ package woowacourse.crewniverse.milkyway.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import woowacourse.crewniverse.milkyway.domain.Attendance;
 import woowacourse.crewniverse.milkyway.domain.Crew;
@@ -27,32 +30,25 @@ public class AttendanceService {
 
     public List<AttendanceResponse> getAbsentCrew() {
         return crewRepository.findAbsentCrewByDate(LocalDate.now())
-            .stream()
-            .map(Crew::getName)
-            .map(AttendanceResponse::new)
-            .toList();
+                .stream()
+                .map(Crew::getName)
+                .map(AttendanceResponse::new)
+                .toList();
     }
 
     public void updateAttendance() {
         LocalDate today = LocalDate.now();
-        final List<AttendanceSheetResponse> attendanceSheetResponses = attendanceCrawler.execute()
+        final Map<String, AttendanceSheetResponse> todayResponses = attendanceCrawler.execute()
                 .stream()
-                .filter(attendanceSheetResponse -> attendanceSheetResponse.hasDateOf(today))
-                .toList();
-        final List<Attendance> attendances = createNewAttendances(attendanceSheetResponses, today);
-        attendanceRepository.saveAll(attendances);
-    }
+                .filter(response -> response.hasDateOf(today))
+                .collect(Collectors.toMap(AttendanceSheetResponse::crewName, Function.identity()));
+        final List<Crew> absentCrews = crewRepository.findAbsentCrewByDate(today);
 
-    private List<Attendance> createNewAttendances(final List<AttendanceSheetResponse> attendanceSheetResponses,
-                                                  final LocalDate today) {
-        final List<Crew> absentCrew = crewRepository.findAbsentCrewByDate(today);
-        final List<Crew> attendanceCrews = attendanceSheetResponses.stream()
-            .map(AttendanceSheetResponse::getCrew)
-            .toList();
-        return attendanceSheetResponses.stream()
-            .filter(attendanceSheetResponse -> absentCrew.contains(attendanceSheetResponse.getCrew()))
-            .map(attendanceSheetResponse -> new Attendance(attendanceSheetResponse.getCrew(),
-                                                           attendanceSheetResponse.getDate()))
-            .toList();
+        final List<Attendance> newAttendances = absentCrews.stream()
+                .filter(crew -> todayResponses.containsKey(crew.getName()))
+                .map(crew -> new Attendance(crew, today))
+                .toList();
+
+        attendanceRepository.saveAll(newAttendances);
     }
 }

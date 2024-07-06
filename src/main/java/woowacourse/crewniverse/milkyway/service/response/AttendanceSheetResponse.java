@@ -1,35 +1,15 @@
 package woowacourse.crewniverse.milkyway.service.response;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import woowacourse.crewniverse.milkyway.domain.Campus;
-import woowacourse.crewniverse.milkyway.domain.Crew;
 
-public class AttendanceSheetResponse {
+public record AttendanceSheetResponse(LocalDate date, String crewName, Campus campus) {
 
-    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern(
-        "yyyy. M. d a h:mm:ss", Locale.KOREA
-    );
-
-    private final LocalDate date;
-    private final Crew crew;
-
-    public AttendanceSheetResponse(final String rawDate, final String name, final String campusName) {
-        this.date = LocalDate.parse(rawDate, DATE_PARSER);
-        final Campus campus = Campus.fromName(campusName);
-        this.crew = new Crew(name, campus);
+    public AttendanceSheetResponse(final LocalDate date, final String crewName, final String campusName) {
+        this(date, crewName, Campus.fromName(campusName));
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Crew getCrew() {
-        return crew;
-    }
-
-    public boolean hasDateOf(final LocalDate date) {
+    public boolean hasDateOf(LocalDate date) {
         return this.date.equals(date);
     }
 }
