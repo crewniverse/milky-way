@@ -14,10 +14,14 @@ public enum Campus {
 
     public static Campus fromName(String name) {
         return Arrays.stream(Campus.values())
-            .filter(it -> it.getName().equals(name))
+            .filter(campus -> campus.hasNameOf(name))
             .findFirst()
             .orElseThrow(
                 () -> new IllegalArgumentException("캠퍼스 명이 존재하지 않습니다 [%s]".formatted(name)));
+    }
+
+    private boolean hasNameOf(String name) {
+        return this.name.equals(name);
     }
 
     public String getName() {
