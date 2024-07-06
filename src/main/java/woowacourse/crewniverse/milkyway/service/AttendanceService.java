@@ -38,9 +38,8 @@ public class AttendanceService {
 
     public void updateAttendance() {
         LocalDate today = LocalDate.now();
-        final Map<String, AttendanceSheetResponse> todayResponses = attendanceCrawler.execute()
+        final Map<String, AttendanceSheetResponse> todayResponses = attendanceCrawler.getAttendancesDateOf(today)
                 .stream()
-                .filter(response -> response.hasDateOf(today))
                 .collect(Collectors.toMap(AttendanceSheetResponse::crewName, Function.identity()));
         final List<Crew> absentCrews = crewRepository.findAbsentCrewByDate(today);
 

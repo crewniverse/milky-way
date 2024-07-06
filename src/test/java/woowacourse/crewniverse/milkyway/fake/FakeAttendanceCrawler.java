@@ -7,9 +7,9 @@ import woowacourse.crewniverse.milkyway.service.response.AttendanceSheetResponse
 
 public class FakeAttendanceCrawler implements AttendanceCrawler {
     @Override
-    public List<AttendanceSheetResponse> execute() {
+    public List<AttendanceSheetResponse> getAttendancesDateOf(LocalDate date) {
         return List.of(
-                new AttendanceSheetResponse(LocalDate.now(), "포케", "잠실")
+                new AttendanceSheetResponse(date, "포케", "잠실")
         );
     }
 }
