@@ -26,9 +26,12 @@ public class GoogleCredentials {
 
     public static Credential authorize(final GoogleCredentialsProperties googleCredentialsProperties)
             throws IOException, GeneralSecurityException {
-        InputStream in = GoogleCredentials.class.getResourceAsStream(googleCredentialsProperties.getCredentialsFilePath());
+        InputStream in = GoogleCredentials.class
+                .getResourceAsStream(googleCredentialsProperties.getCredentialsFilePath());
         if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + googleCredentialsProperties.getCredentialsFilePath());
+            throw new FileNotFoundException(
+                    "Resource not found: " + googleCredentialsProperties.getCredentialsFilePath()
+            );
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
                 GsonFactory.getDefaultInstance(), new InputStreamReader(in)
