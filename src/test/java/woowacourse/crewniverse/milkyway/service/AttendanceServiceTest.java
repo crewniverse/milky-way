@@ -16,11 +16,11 @@ class AttendanceServiceTest extends BaseSpringBootTest {
     @Autowired
     private AttendanceService attendanceService;
 
-    @DisplayName("출석부를 업데이트 한다.")
+    @DisplayName("출석부를 업데이트 하면, 출석하지 않은 크루 수만큼 response가 반환된다")
     @Test
     void should_update_attendance() {
         attendanceService.updateAttendance();
         final List<AttendanceResponse> notAttendanceCrew = attendanceService.getAbsentCrew();
-        assertThat(notAttendanceCrew).isEmpty();
+        assertThat(notAttendanceCrew).hasSize(3);
     }
 }
